@@ -1,0 +1,25 @@
+{
+  "name": "ping-pong",
+  "version": "1.0.0",
+  "description": "DevOps with Kubernetes",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keskimaki/DevOps-with-Kubernetes.git"
+  },
+  "author": "Miko Keskimäki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Keskimaki/DevOps-with-Kubernetes/issues"
+  },
+  "homepage": "https://github.com/Keskimaki/DevOps-with-Kubernetes#readme",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  }
+}

@@ -22,7 +22,7 @@ const getStringWithTimestamp = (string) => {
 
 const string = generateRandomString(50)
 
-app.get('/', (req, res) => {
+app.get('/log-output', (req, res) => {
   const stringWithTimestamp = getStringWithTimestamp(string)
 
   res.send(stringWithTimestamp)
