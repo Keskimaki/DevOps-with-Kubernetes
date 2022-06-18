@@ -1,3 +1,5 @@
+import fs from 'fs'
+
 import 'dotenv/config'
 import express from 'express'
 
@@ -8,6 +10,11 @@ let counter = 0
 
 app.get('/pingpong', (req, res) => {
   res.send(`pong ${counter}`)
+
+  fs.writeFile('./pingpong/log.txt', counter.toString(), err => {
+    if (err)
+      console.log(err)
+  })
   counter++
 })
 

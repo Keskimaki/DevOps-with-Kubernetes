@@ -12,6 +12,13 @@ spec:
       labels:
         app: pingpong
     spec:
+      volumes:
+        - name: log-output-pingpong
+          persistentVolumeClaim:
+            claimName: log-output-pingpong-claim
       containers:
         - name: pingpong
-          image: keskimaki/pingpong:0.2
+          image: keskimaki/pingpong:0.6
+          volumeMounts:
+            - name: log-output-pingpong
+              mountPath: /usr/src/app/pingpong

@@ -25,7 +25,15 @@ const getStringWithTimestamp = (string) => {
     return data
   })
 
-  return `${timestamp}: ${string}`
+  const counter = fs.readFileSync('./pingpong/log.txt', 'utf8', (err, data) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+    return data
+  })
+
+  return `<p>${timestamp}: ${string}</p><p>Ping / Pongs: ${counter}</p>`
 }
 
 const string = generateRandomString(50)
