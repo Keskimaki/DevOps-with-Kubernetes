@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: kube-project
-          image: keskimaki/kube-project
+          image: keskimaki/kube-project:0.1
