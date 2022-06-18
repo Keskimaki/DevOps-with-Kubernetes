@@ -12,6 +12,17 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: timestamp
+          emptyDir: {}
       containers:
-        - name: log-output
-          image: keskimaki/log-output:0.2
+        - name: log-output-writer
+          image: keskimaki/log-output-writer:0.1
+          volumeMounts:
+            - name: timestamp
+              mountPath: /usr/src/app/files
+        - name: log-output-reader
+          image: keskimaki/log-output-reader:0.1
+          volumeMounts:
+            - name: timestamp
+              mountPath: /usr/src/app/files
