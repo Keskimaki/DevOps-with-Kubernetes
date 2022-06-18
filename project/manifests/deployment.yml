@@ -12,6 +12,13 @@ spec:
       labels:
         app: kube-project
     spec:
+      volumes:
+        - name: files
+          persistentVolumeClaim:
+            claimName: kube-project-claim
       containers:
         - name: kube-project
-          image: keskimaki/kube-project:0.1
+          image: keskimaki/kube-project:0.6
+          volumeMounts:
+            - mountPath: /usr/src/app/files
+              name: files
