@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: log-output
-          image: keskimaki/log-output
+          image: keskimaki/log-output:0.1

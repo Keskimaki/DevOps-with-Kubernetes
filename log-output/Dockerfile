@@ -1,7 +1,13 @@
 FROM node:18-alpine
 
+EXPOSE $PORT
+
 WORKDIR usr/src/app
 
-COPY index.js .
+COPY package* ./
 
-CMD ["node", "index.js"]
+RUN npm ci
+
+COPY . .
+
+CMD ["npm", "start"]

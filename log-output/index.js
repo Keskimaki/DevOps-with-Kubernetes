@@ -1,3 +1,9 @@
+import 'dotenv/config'
+import express from 'express'
+
+const app = express()
+const port = process.env.PORT || 3001
+
 const generateRandomString = (length) => {
   let text = ""
   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -8,12 +14,20 @@ const generateRandomString = (length) => {
   return text
 }
 
-const printStringWithTimestamp = (string) => {
+const getStringWithTimestamp = (string) => {
   const timestamp = new Date().toISOString()
-  console.log(`${timestamp}: ${string}`)
+
+  return `${timestamp}: ${string}`
 }
 
 const string = generateRandomString(50)
 
-printStringWithTimestamp(string)
-setInterval(() => printStringWithTimestamp(string), 5000)
+app.get('/', (req, res) => {
+  const stringWithTimestamp = getStringWithTimestamp(string)
+
+  res.send(stringWithTimestamp)
+})
+
+app.listen(port, () => {
+  console.log(`Server started in port ${port}`)
+})
