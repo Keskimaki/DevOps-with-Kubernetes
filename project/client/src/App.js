@@ -1,22 +1,28 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+
 
 const App = () => {
+  const [todos, setTodos] = useState([])
   const [newTodo, setNewTodo] = useState('')
-  const todos = [
-    'TODO 1',
-    'TODO 2'
-  ]
 
-  const handleSubmit = (event) => {
+  useEffect(async () => {
+    const { data } = await axios.get('http://localhost:8081/api/todos')
+    setTodos(data)
+  }, [])
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(newTodo)
+    await axios.post('http://localhost:8081/api/todos', { todo: newTodo })
+
+    setTodos(todos.concat(newTodo))
     setNewTodo('')
   }
 
   return (
     <div>
       <h1>Todo App</h1>
-      <img src="https://picsum.photos/1200" width="400" height="400" />
+      <img src="http://localhost:8081/api/image" width="400" height="400" />
       <br />
       <form onSubmit={handleSubmit}>
         <input

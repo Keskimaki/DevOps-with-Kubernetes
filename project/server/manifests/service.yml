@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-project-api-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: kube-project
+  ports:
+    - port: 2346
+      protocol: TCP
+      targetPort: 3003
+
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: kube-project-api-service
+#spec:
+#  type: ClusterIP
+#  selector:
+#    app: kube-project-api
+#  ports:
+#    - name: http
+#      protocol: TCP
+#      port: 80
+#      targetPort: 3003

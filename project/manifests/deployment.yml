@@ -18,7 +18,9 @@ spec:
             claimName: kube-project-claim
       containers:
         - name: kube-project
-          image: keskimaki/kube-project:0.6
+          image: keskimaki/kube-project-front:0.5
+        - name: kube-project-api
+          image: keskimaki/kube-project-api:0.4
           volumeMounts:
             - mountPath: /usr/src/app/files
               name: files

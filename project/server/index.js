@@ -5,9 +5,13 @@ import express from 'express'
 import axios from 'axios'
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3003
 
 let currentDate
+let todos = [
+  'TODO 1',
+  'TODO 2'
+]
 
 async function downloadImage(url, filepath) {
   const response = await axios({
@@ -22,6 +26,8 @@ async function downloadImage(url, filepath) {
   })
 }
 
+app.use(express.json())
+
 app.use(async (req, res, next) => {
   const date = new Date().toISOString().slice(0, 10)
   if (currentDate !== date) {
@@ -33,12 +39,23 @@ app.use(async (req, res, next) => {
   next()
 })
 
-app.get('/image', (req, res) => {
+app.get('/api/image', (req, res) => {
   res.sendFile(`/usr/src/app/files/${currentDate}.jpg`)
 })
 
-app.get('/ping', (req, res) => {
+app.get('/api/ping', (req, res) => {
   res.send('pong')
+})
+
+app.get('/api/todos', (req, res) => {
+  res.send(todos)
+})
+
+app.post('/api/todos', (req, res) => {
+  const { todo } = req.body
+  todos = todos.concat(todo)
+
+  res.status(201).send(todo)
 })
 
 app.listen(port, () => {
