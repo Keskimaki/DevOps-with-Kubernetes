@@ -2,6 +2,7 @@ import fs from 'fs'
 
 import 'dotenv/config'
 import express from 'express'
+import axios from 'axios'
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -16,7 +17,7 @@ const generateRandomString = (length) => {
   return text
 }
 
-const getStringWithTimestamp = (string) => {
+const getStringWithTimestamp = async (string) => {
   const timestamp = fs.readFileSync('./files/log.txt', 'utf8', (err, data) => {
     if (err) {
       console.log(err)
@@ -25,21 +26,15 @@ const getStringWithTimestamp = (string) => {
     return data
   })
 
-  const counter = fs.readFileSync('./pingpong/log.txt', 'utf8', (err, data) => {
-    if (err) {
-      console.log(err)
-      return
-    }
-    return data
-  })
+  const { data } = await axios.get('http://pingpong-service/pingpong/counter')
 
-  return `<p>${timestamp}: ${string}</p><p>Ping / Pongs: ${counter}</p>`
+  return `<p>${timestamp}: ${string}</p><p>Ping / Pongs: ${data}</p>`
 }
 
 const string = generateRandomString(50)
 
-app.get('/log-output', (req, res) => {
-  const stringWithTimestamp = getStringWithTimestamp(string)
+app.get('/log-output', async (req, res) => {
+  const stringWithTimestamp = await getStringWithTimestamp(string)
   res.send(stringWithTimestamp)
 })
 

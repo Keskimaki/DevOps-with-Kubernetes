@@ -18,6 +18,10 @@ app.get('/pingpong', (req, res) => {
   counter++
 })
 
+app.get('/pingpong/counter', (req, res) => {
+  res.send(counter.toString())
+})
+
 app.listen(port, () => {
   console.log(`Server started in port ${port}`)
 })

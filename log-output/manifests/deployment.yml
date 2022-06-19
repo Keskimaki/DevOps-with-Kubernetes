@@ -15,9 +15,9 @@ spec:
       volumes:
         - name: timestamp
           emptyDir: {}
-        - name: log-output-pingpong
-          persistentVolumeClaim:
-            claimName: log-output-pingpong-claim
+        #- name: log-output-pingpong
+        #  persistentVolumeClaim:
+        #    claimName: log-output-pingpong-claim
       containers:
         - name: log-output-writer
           image: keskimaki/log-output-writer:0.1
@@ -25,9 +25,9 @@ spec:
             - name: timestamp
               mountPath: /usr/src/app/files
         - name: log-output-reader
-          image: keskimaki/log-output-reader:0.5
+          image: keskimaki/log-output-reader:1.2
           volumeMounts:
             - name: timestamp
               mountPath: /usr/src/app/files
-            - name: log-output-pingpong
-              mountPath: /usr/src/app/pingpong
+          #  - name: log-output-pingpong
+          #    mountPath: /usr/src/app/pingpong
