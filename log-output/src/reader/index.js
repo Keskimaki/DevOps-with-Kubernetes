@@ -6,6 +6,7 @@ import axios from 'axios'
 
 const app = express()
 const port = process.env.PORT || 3001
+const message = process.env.MESSAGE
 
 const generateRandomString = (length) => {
   let text = ''
@@ -28,7 +29,7 @@ const getStringWithTimestamp = async (string) => {
 
   const { data } = await axios.get('http://pingpong-service/pingpong/counter')
 
-  return `<p>${timestamp}: ${string}</p><p>Ping / Pongs: ${data}</p>`
+  return `<p>${message}</p><p>${timestamp}: ${string}</p><p>Ping / Pongs: ${data}</p>`
 }
 
 const string = generateRandomString(50)

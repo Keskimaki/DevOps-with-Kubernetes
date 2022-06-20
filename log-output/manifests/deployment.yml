@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: log-output-pingpong
   name: log-output-dep
 spec:
   replicas: 1
@@ -15,6 +16,12 @@ spec:
       volumes:
         - name: timestamp
           emptyDir: {}
+        - name: dotenv
+          configMap:
+            name: dotenv-configmap
+            items:
+              - key: ".env"
+                path: ".env"
         #- name: log-output-pingpong
         #  persistentVolumeClaim:
         #    claimName: log-output-pingpong-claim
