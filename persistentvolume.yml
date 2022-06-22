@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: log-output-pingpong
+  namespace: project
   name: volume-pv
 spec:
   storageClassName: manual

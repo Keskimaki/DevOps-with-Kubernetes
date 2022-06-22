@@ -19,9 +19,16 @@ spec:
             claimName: kube-project-claim
       containers:
         - name: kube-project
-          image: keskimaki/kube-project-front:0.5
+          image: keskimaki/kube-project-front:0.6
         - name: kube-project-api
-          image: keskimaki/kube-project-api:0.4
+          image: keskimaki/kube-project-api:1.2
           volumeMounts:
             - mountPath: /usr/src/app/files
               name: files
+              #valueFrom:
+              #  configMapKeyRef:
+              #    name: dotenv-configmap
+              #    key: POSTGRES_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: dotenv-configmap

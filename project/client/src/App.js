@@ -13,9 +13,9 @@ const App = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    await axios.post('http://localhost:8081/api/todos', { todo: newTodo })
+    const todo = await axios.post('http://localhost:8081/api/todos', { todo: newTodo })
 
-    setTodos(todos.concat(newTodo))
+    setTodos(todos.concat(todo))
     setNewTodo('')
   }
 

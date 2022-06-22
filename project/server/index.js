@@ -3,15 +3,14 @@ import fs from 'fs'
 import 'dotenv/config'
 import express from 'express'
 import axios from 'axios'
+import { QueryTypes } from 'sequelize'
+
+import sequelize from './db.js'
 
 const app = express()
 const port = process.env.PORT || 3003
 
 let currentDate
-let todos = [
-  'TODO 1',
-  'TODO 2'
-]
 
 async function downloadImage(url, filepath) {
   const response = await axios({
@@ -48,13 +47,13 @@ app.get('/api/ping', (req, res) => {
 })
 
 app.get('/api/todos', (req, res) => {
+  const todos = await sequelize.query('SELECT * FROM todos', { type: QueryTypes.SELECT })
   res.send(todos)
 })
 
 app.post('/api/todos', (req, res) => {
-  const { todo } = req.body
-  todos = todos.concat(todo)
-
+  const { text } = req.body
+  const todo = await sequelize.query(`INSERT INTO todos (todo) VALUES ('${text}')`)
   res.status(201).send(todo)
 })
 
