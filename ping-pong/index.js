@@ -1,21 +1,16 @@
-import fs from 'fs'
-
 import 'dotenv/config'
 import express from 'express'
+
+import sequelize from './db'
 
 const app = express()
 const port = process.env.PORT || 3002
 
-let counter = 0
-
 app.get('/pingpong', (req, res) => {
-  res.send(`pong ${counter}`)
-
-  fs.writeFile('./pingpong/log.txt', counter.toString(), err => {
-    if (err)
-      console.log(err)
-  })
-  counter++
+  const counter = await sequelize.query('SELECT (count) FROM counter', { type: QueryTypes.SELECT })
+  const count = counter[0].count
+  res.send(`pong ${count}`)
+  await sequelize.query(`UPDATE counter SET count = ${count + 1}`)
 })
 
 app.get('/pingpong/counter', (req, res) => {
