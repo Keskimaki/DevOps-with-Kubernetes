@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
             - name: daily-article
-              image: keskimaki/daily-article:0.1
+              image: keskimaki/daily-article:0.2
               imagePullPolicy: IfNotPresent
               command:
               - node index.js

@@ -13,9 +13,10 @@ const App = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const todo = await axios.post('http://localhost:8081/api/todos', { todo: newTodo })
+    await axios.post('http://localhost:8081/api/todos', { text: newTodo })
 
-    setTodos(todos.concat(todo))
+    const { data } = await axios.get('http://localhost:8081/api/todos')
+    setTodos(data)
     setNewTodo('')
   }
 
@@ -33,7 +34,7 @@ const App = () => {
         <button type="submit">Create TODO</button>
       </form>
       <ul>
-        {todos.map(todo => <li>{todo}</li>)}
+        {todos.map(({ todo }) => <li>{todo}</li>)}
       </ul>
     </div>
   )

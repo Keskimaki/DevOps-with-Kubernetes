@@ -2,3 +2,4 @@
 node_modules
 log.txt
 dotenv-configmap.yml
+get_helm.sh

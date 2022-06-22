@@ -12,7 +12,7 @@ const port = process.env.PORT || 3003
 
 let currentDate
 
-async function downloadImage(url, filepath) {
+const downloadImage = async (url, filepath) => {
   const response = await axios({
       url,
       method: 'GET',
@@ -46,14 +46,20 @@ app.get('/api/ping', (req, res) => {
   res.send('pong')
 })
 
-app.get('/api/todos', (req, res) => {
+app.get('/api/todos', async (req, res) => {
   const todos = await sequelize.query('SELECT * FROM todos', { type: QueryTypes.SELECT })
   res.send(todos)
 })
 
-app.post('/api/todos', (req, res) => {
+app.post('/api/todos', async (req, res) => {
+  console.log('Adding todo...')
   const { text } = req.body
+  if (text.length > 140) {
+    console.log('Todo is too long, stopping...')
+    return res.status(400).send('Todo is too long')
+  }
   const todo = await sequelize.query(`INSERT INTO todos (todo) VALUES ('${text}')`)
+  console.log('Todo added')
   res.status(201).send(todo)
 })
 
