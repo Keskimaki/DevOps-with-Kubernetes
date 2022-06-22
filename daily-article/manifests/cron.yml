@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: project
+  name: daily-article
+spec:
+  schedule: "0 00 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: daily-article
+              image: keskimaki/daily-article:0.1
+              imagePullPolicy: IfNotPresent
+              command:
+              - node index.js
+          restartPolicy: OnFailure
